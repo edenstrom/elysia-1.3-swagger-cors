@@ -1,7 +1,18 @@
+import cors from "@elysiajs/cors";
+import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+const testRoutes = new Elysia({ prefix: "test" }).get("/", () => [
+  { name: "Test" },
+]);
+
+const app = new Elysia()
+  .use(cors())
+  .use(swagger())
+  .use(testRoutes)
+  .get("/test2", () => [{ name: "Test2" }])
+  .listen(4000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`
 );
