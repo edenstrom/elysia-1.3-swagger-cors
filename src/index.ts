@@ -22,7 +22,7 @@ const app = new Elysia()
   .use(swagger())
   .use(testRoutes)
   .get("/test2", () => [{ name: "Test2" }])
-  .listen(4000);
+  .listen(process.env.PORT || 4000);
 
 console.log(
   `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`
